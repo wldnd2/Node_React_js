@@ -5,20 +5,22 @@ const port = 5000
 const bodyParser = require('body-parser');
 const { User } = require('./models/User');
 
+const config = require('./config/keys');
+
 // appplication/x-www-form-urlencoded 이렇게 된 데이터를 분석해서 가지고 올 수 있게 해준다.
 app.use(bodyParser.urlencoded({ extended: true }));
 // appplication/json으로 된것을 분석해서 들고 올 수 있게 해준다.
 app.use(bodyParser.json()); 
 
 const mongoose = require('mongoose')
-mongoose.connect("mongodb+srv://jjw:1HCC7g1HB9DmYiba@nodejspractice.z4connl.mongodb.net/?retryWrites=true&w=majority",{
+mongoose.connect(config.mongoURI,{
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(()=>console.log("MongoDB Connnected..."))
   .catch(err => console.log(err))
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! Hello Node.js!');
 })
 
 app.post("/register", (req, res) => {
